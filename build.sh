@@ -5,12 +5,15 @@ SDK_DIR=/data/data/com.termux/files/home/.cache/android-api/android-35
 RESOURCE_SDK_DIR=/data/data/com.termux/files/home/.cache/android-api/android-9
 TOOLS_DIR=/data/data/com.termux/files/usr/bin
 OUT="$PROJECT_DIR/build"
-KEYSTORE="$PROJECT_DIR/release-key/nivel-digital-release.keystore"
+KEY_DIR=/data/data/com.termux/files/home/.android-keys
+KEYSTORE="$KEY_DIR/nivel-digital.keystore"
 APK_NAME="Nivel-Digital.apk"
 
-mkdir -p "$PROJECT_DIR/release-key"
+mkdir -p "$KEY_DIR"
+chmod 700 "$KEY_DIR"
 rm -rf "$OUT"
 mkdir -p "$OUT/gen" "$OUT/classes" "$OUT/dex"
+sh "$PROJECT_DIR/tests/run.sh"
 "$TOOLS_DIR/aapt2" compile --dir "$PROJECT_DIR/res" -o "$OUT/res-compiled.zip"
 "$TOOLS_DIR/aapt2" link \
     -I "$RESOURCE_SDK_DIR/android.jar" \
@@ -18,8 +21,8 @@ mkdir -p "$OUT/gen" "$OUT/classes" "$OUT/dex"
     --java "$OUT/gen" \
     --min-sdk-version 26 \
     --target-sdk-version 30 \
-    --version-code 1 \
-    --version-name 1.0.0 \
+    --version-code 2 \
+    --version-name 1.1.0 \
     --auto-add-overlay \
     -o "$OUT/resources.apk" -R "$OUT/res-compiled.zip"
 find "$PROJECT_DIR/src" "$OUT/gen" -type f -name '*.java' -print > "$OUT/sources.list"
