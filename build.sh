@@ -46,5 +46,6 @@ fi
     --ks-pass pass:niveldigital --key-pass pass:niveldigital \
     --out "$OUT/$APK_NAME" "$OUT/aligned.apk"
 "$TOOLS_DIR/apksigner" verify --verbose "$OUT/$APK_NAME"
-cp "$OUT/$APK_NAME" /storage/emulated/0/Documents/"$APK_NAME"
-printf 'APK entregue em /storage/emulated/0/Documents/%s\n' "$APK_NAME"
+mkdir -p /storage/emulated/0/Documents/APK
+cp "$OUT/$APK_NAME" /storage/emulated/0/Documents/APK/"$APK_NAME"
+printf 'APK entregue em /storage/emulated/0/Documents/APK/%s\n' "$APK_NAME"
